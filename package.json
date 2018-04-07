@@ -1,0 +1,25 @@
+{
+    "name": "wi-connect",
+    "version": "1.0.0",
+    "description": "Le projet du module CPA (Conception Pratique des Algorithmes de Master STL de l'UPMC)",
+    "main": "server/server.go",
+    "scripts": {
+        "serve": "cd ./client && ng build -aot && cd ../server && go run server.go",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Misteryagci/wi-connect.git"
+    },
+    "keywords": [
+        "GoLang",
+        "Angular5",
+        "D3.JS"
+    ],
+    "author": "Kaan YAGCI <kaan@kaanyagci.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Misteryagci/wi-connect/issues"
+    },
+    "homepage": "https://github.com/Misteryagci/wi-connect#readme"
+}

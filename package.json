@@ -4,6 +4,7 @@
     "description": "Le projet du module CPA (Conception Pratique des Algorithmes de Master STL de l'UPMC)",
     "main": "server/server.go",
     "scripts": {
+        "serve-client": "cd ./client && ng serve",
         "serve": "cd ./client && ng build -aot && cd ../server && go run main.go",
         "build-client": "cd ./client && ng build --aot && cd ..",
         "test": "echo \"Error: no test specified\" && exit 1"

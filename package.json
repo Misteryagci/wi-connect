@@ -9,7 +9,8 @@
         "build-client": "cd ./client && ng build --aot && cd ..",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build-and-copy": "rm -rf ~/go/src/cpa-project-server/static && npm run build-client && cp -r ./server/static ~/go/src/cpa-project-server/",
-        "init-server": "rm -rf ./server/* && cp -rf ~/go/src/cpa-project-server/* ./server/ && npm run build-client"
+        "init-server": "rm -rf ./server/* && cp -rf ~/go/src/cpa-project-server/* ./server/ && npm run build-client",
+        "init-server-and-run": "npm run init-server && cd ./server && go run main.go"
     },
     "repository": {
         "type": "git",

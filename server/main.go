@@ -25,7 +25,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	var udg unitDiskGraph.UnitDiskGraph
-	udg.SetUp(conf,100)
+	udg.SetUp(conf,50)
 	json.NewEncoder(w).Encode(udg)
 }
 

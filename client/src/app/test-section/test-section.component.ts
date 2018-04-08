@@ -5,6 +5,7 @@ import { Component, OnInit, AfterViewChecked, AfterContentInit } from '@angular/
 import { MatDialog } from '@angular/material/dialog';
 import { Point } from './../point';
 import { Edge } from './../edge';
+import { ElementRef, ViewChild } from '@angular/core';
 
 
 import * as d3 from 'd3';
@@ -16,6 +17,9 @@ import * as d3 from 'd3';
 })
 export class TestSectionComponent implements OnInit, AfterContentInit {
 
+  @ViewChild('mapContainer') elementView: ElementRef;
+  viewHeight: number;
+  viewWidth: number;
   public maxHeight: number;
   public maxWidth: number;
   private width = 950;
@@ -57,7 +61,10 @@ export class TestSectionComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.pointService.testService(this.maxWidth / 10, this.maxHeight / 2, 4, 30).subscribe((data: UnitDiskGraph) => {
+    this.viewHeight = this.elementView.nativeElement.offsetHeight;
+    this.viewWidth = this.elementView.nativeElement.offsetWidth;
+    console.log('Element height ' + this.viewHeight + ' element width ' + this.viewWidth);
+    this.pointService.testService(this.viewWidth - 20, this.viewHeight * 0.8, 4, 1000).subscribe((data: UnitDiskGraph) => {
       console.log('Le data obtenu de serveur : ' + JSON.stringify(data));
       this.graph = data;
       this.svg = d3.select('.map-image-contaiiner')
@@ -72,7 +79,7 @@ export class TestSectionComponent implements OnInit, AfterContentInit {
         .selectAll('line')
         .data(this.graph.edges)
         .enter().append('line')
-        .attr('style', 'stroke:rgb(0,204,0);stroke-width:1.5')
+        .attr('style', 'stroke:rgb(0,204,0);stroke-width:0.25')
         .attr('x1', (d) => d.src.x)
         .attr('y1', (d) => d.src.y)
         .attr('x2', (d) => d.destination.x)

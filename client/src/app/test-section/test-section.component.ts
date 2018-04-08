@@ -1,7 +1,14 @@
+import { UnitDiskGraph } from './../unit-disk-graph';
+import { PointService } from './../point.service';
 import { NewTestBendComponent } from './../new-test-bend/new-test-bend.component';
 import { Component, OnInit, AfterViewChecked, AfterContentInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Point } from './../point';
+import { Edge } from './../edge';
+
+
 import * as d3 from 'd3';
+
 @Component({
   selector: 'app-test-section',
   templateUrl: './test-section.component.html',
@@ -14,43 +21,30 @@ export class TestSectionComponent implements OnInit, AfterContentInit {
   private width = 950;
   private height = 500;
   private shiftKey;
+  public loaded: boolean;
 
-  private graph = {
-    nodes: [
-      { x: 5, y: 10 },
-      { x: 5, y: 20 },
-      { x: 10, y: 50 },
-      { x: 30, y: 100 },
-      { x: 150, y: 200 },
-      { x: 5, y: 30 },
-      { x: 124, y: 43 },
-    ],
-    links: [
-      { source: 1, target: 0 },
-      { source: 2, target: 0 },
-      { source: 3, target: 0 },
-      { source: 3, target: 2 },
-      { source: 4, target: 0 },
-      { source: 5, target: 0 }
-    ]
-  };
+  private graph: UnitDiskGraph;
 
-  private isSelectedNode(n: {x: number, y: number}): boolean {
-    const idx = this.graph.nodes.indexOf(n);
-    for (let l of this.graph.links) {
-      if (l.source === idx || l.target === idx) {
-        return true;
-      }
-    }
+  private svg;
+
+
+  private isSelectedNode(n: Point): boolean {
+    // for (let li = 0; this.graph.edges.length; li++) {
+    //   const l: Edge = this.graph.edges[li];
+    //   console.log('We are checking this edge', l);
+    //   if ((l.src.equals(n) === true) || (l.destination.equals(n) === true)) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 
 
-  private svg;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private pointService: PointService) {
     this.maxWidth = window.screen.width;
     this.maxHeight = window.screen.height;
+    this.loaded = false;
   }
 
 
@@ -63,33 +57,38 @@ export class TestSectionComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    this.svg = d3.select('.map-image-contaiiner')
-      .attr('tabindex', 1)
-      .each(() => { focus(); })
-      .append('svg')
-      .attr('width', '100%')
-      .attr('height', '80vh');
+    this.pointService.testService(this.maxWidth / 10, this.maxHeight / 2, 4, 30).subscribe((data: UnitDiskGraph) => {
+      console.log('Le data obtenu de serveur : ' + JSON.stringify(data));
+      this.graph = data;
+      this.svg = d3.select('.map-image-contaiiner')
+        .attr('tabindex', 1)
+        .each(() => { focus(); })
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', '80vh');
 
-    const link = this.svg.append('g')
-      .attr('class', 'link')
-      .selectAll('line')
-      .data(this.graph.links)
-      .enter().append('line')
-      .attr('style', 'stroke:rgb(0,204,0);stroke-width:1.5')
-      .attr('x1',  (d) =>  this.graph.nodes[d.source].x)
-      .attr('y1',  (d) => this.graph.nodes[d.source].y)
-      .attr('x2',  (d) => this.graph.nodes[d.target].x )
-      .attr('y2',  (d)  => this.graph.nodes[d.target].y);
+      const link = this.svg.append('g')
+        .attr('class', 'link')
+        .selectAll('line')
+        .data(this.graph.edges)
+        .enter().append('line')
+        .attr('style', 'stroke:rgb(0,204,0);stroke-width:1.5')
+        .attr('x1', (d) => d.src.x)
+        .attr('y1', (d) => d.src.y)
+        .attr('x2', (d) => d.destination.x)
+        .attr('y2', (d) => d.destination.y);
 
-    const node = this.svg.append('g')
-      .attr('class', 'node')
-      .selectAll('circle')
-      .data(this.graph.nodes)
-      .enter().append('circle')
-      .attr('fill', (d) => this.isSelectedNode(d) ? 'blue' : 'purple')
-      .attr('r', 4)
-      .attr('cx',  (d) => d.x )
-      .attr('cy',  (d) => d.y );
+      const node = this.svg.append('g')
+        .attr('class', 'node')
+        .selectAll('circle')
+        .data(this.graph.points)
+        .enter().append('circle')
+        .attr('fill', (d) => this.isSelectedNode(d) ? 'blue' : 'purple')
+        .attr('r', 4)
+        .attr('cx', (d) => d.x)
+        .attr('cy', (d) => d.y);
+      this.loaded = true;
+    });
   }
 
   randomPoints() {

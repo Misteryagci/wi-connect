@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Utils } from './utils';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +18,8 @@ import { TestSectionComponent } from './test-section/test-section.component';
 import { SourceSectionComponent } from './source-section/source-section.component';
 import { FooterComponent } from './footer/footer.component';
 import { NewTestBendComponent } from './new-test-bend/new-test-bend.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PointService } from './point.service';
 
 
 @NgModule({
@@ -42,12 +43,13 @@ import { NewTestBendComponent } from './new-test-bend/new-test-bend.component';
     MatCardModule,
     MatSliderModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
   entryComponents: [
     NewTestBendComponent
   ],
-  providers: [],
+  providers: [PointService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

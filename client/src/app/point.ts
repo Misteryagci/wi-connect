@@ -1,6 +1,7 @@
 export class Point {
     public x: number;
     public y: number;
+    public color: string;
 
     constructor(x: number, y: number) {
         this.x = x;
@@ -17,6 +18,10 @@ export class Point {
 
     public getY(): number {
         return this.y;
+    }
+
+    public equals(p: Point): boolean {
+        return ((p.x === this.x) && (p.y === this.y));
     }
 
 }

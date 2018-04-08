@@ -91,10 +91,13 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-flex: 0;
     -webkit-flex: 0 auto;
     -ms-flex: 0 auto;
@@ -765,7 +768,6 @@
 }
 
 .button-icon {
-    font-family: Materialicons, sans-serif;
     font-size: 28px;
 }
 

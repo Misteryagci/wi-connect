@@ -23,5 +23,8 @@
     "bugs": {
         "url": "https://github.com/Misteryagci/wi-connect/issues"
     },
-    "homepage": "https://github.com/Misteryagci/wi-connect#readme"
+    "homepage": "https://github.com/Misteryagci/wi-connect#readme",
+    "dependencies": {
+        "hammerjs": "^2.0.8"
+    }
 }

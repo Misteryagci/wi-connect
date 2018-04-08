@@ -21,7 +21,8 @@
         "styles": [
             "css/normalize.css",
             "css/webflow.css",
-            "css/wi-connect.webflow.css"
+            "css/wi-connect.webflow.css",
+            "styles.css"
         ],
         "scripts": [
             "js/webflow.js"

@@ -1,0 +1,19 @@
+<mat-card class="result">
+    <mat-card-title>
+        Créez votre test-bed
+    </mat-card-title>
+    <mat-card-content>
+        <mat-form-field style="width: 100%;">
+            <input matInput placeholder=" Comment vous voulez appellez votre test-bed? " style="width: 100%;">
+        </mat-form-field>
+        <label>Combien de point vous voulez créer?</label>
+        <mat-slider max=" 1000 " min="1 " step="1 " thumb-label="true " style="width: 100%; ">
+        </mat-slider>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-icon-button mat-dialog-close matTooltip="Fermez le pop-up">
+          <mat-icon>close</mat-icon></button>
+        <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+        <button mat-icon-button [mat-dialog-close]="true" matTooltip="Créez le test-bed"><mat-icon>send</mat-icon></button>
+    </mat-card-actions>
+</mat-card>
